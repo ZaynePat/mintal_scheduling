@@ -5,7 +5,6 @@
         <h1>
             Schedule
         </h1>
-        <br>
     </div>
     <div class="container pt-5">
         <table id="datatableSchedule" class="table" style="width:100%" >
@@ -30,7 +29,9 @@
                 @foreach ($schedules as $schedule)
                     <tr>
                         <td>
-                            <a href="{{ route('faculty.show', $schedule->faculty) }}"> {{ $schedule->faculty->first_name ?? '' }} {{ $schedule->faculty->last_name ?? '' }} {{ '('.$schedule->faculty->designation.')' ?? '' }} </a>
+                            @if ($schedule->faculty)
+                                <a href="{{ route('faculty.show', $schedule->faculty) }}"> {{ $schedule->faculty->first_name ?? '' }} {{ $schedule->faculty->last_name ?? '' }} {{ '('.$schedule->faculty->designation.')' ?? '' }} </a>
+                            @endif
                         </td>
                         <td>{{ $schedule->faculty->first_name ?? '' }} {{ $schedule->faculty->last_name ?? '' }}</td>
                         <td>{{ $schedule->subject->subject_code ?? '' }}</td>
@@ -75,9 +76,11 @@
                 </tr>
             </tfoot>
         </table>
-        <a href="{{ route('schedule.create') }}"> Add a Schedule</a> <br>
+        <a href="{{ route('schedule.create') }}"><button class="btn btn-primary btn-lg w-80"
+            style="border: white; margin: 7px 0 10px 0; background-color: rgb(161, 49, 49);"> Add a Schedule</button></a> 
         
-        <a href="{{ route('schedule.export') }}" class="text-center fs-5 text-maroon">Download Faculty Loading Summary</a>
+        <a href="{{ route('schedule.export') }}" class="text-center fs-5 text-maroon"><button class="btn btn-primary btn-lg w-80"
+            style="border: white; background-color: rgb(161, 49, 49);">Download Faculty Loading Summary</button></a>
     </div>
 
 @endsection

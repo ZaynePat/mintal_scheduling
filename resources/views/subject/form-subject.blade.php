@@ -116,6 +116,9 @@
                 <button class="btn btn-primary btn-lg w-100"
                     style="border: white; background-color: rgb(161, 49, 49);">Add</button>
             </form>
+        
+                <a href="{{ route('subject.index') }}"><button class="btn btn-primary btn-lg w-100"
+                    style="border: white; margin:10px 0 100px 0; background-color: rgb(161, 49, 49);"> View Subject</button></a>
         </div>
     </div>
 @endsection
