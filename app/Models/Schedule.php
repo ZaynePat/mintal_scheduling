@@ -32,6 +32,16 @@ class Schedule extends Model
         return str_replace(',','', $value);
     }
 
+    public function getTimeStartAttribute()
+    {
+        return $this->time_slots()->first()->time_start ?? null;
+    }
+
+    public function getTimeEndAttribute()
+    {
+        return $this->time_slots()->first()->time_end ?? null;
+    }
+
 
 
     //---relation functions---///

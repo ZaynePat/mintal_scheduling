@@ -5,7 +5,7 @@
         <h1>
             Classroom
         </h1>
-        <!-- <img src="table.png"></img> -->
+        
     </div>
     <div class="container pt-5">
         <table id="datatablesDefault" class="table table-striped" style="width:100%" data-export-filename="Classrooms CDM Scheduling" data-export-title="Classrooms">

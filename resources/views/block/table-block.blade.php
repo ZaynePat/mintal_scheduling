@@ -6,7 +6,6 @@
             Block
         </h1>
         <br>
-        <!-- <img src="table.png"></img> -->
     </div>
     <div class="container pt-5">
         <table id="datatablesDefault" class="table table-striped" data-export-filename="Blocks CDM Scheduling" data-export-title="Blocks">

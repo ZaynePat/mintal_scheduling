@@ -157,5 +157,14 @@
             <span>Academic Calendar</span>
         </a>
     </li>
+
+     <!-- Activity Logs -->
+     <li class="sidebar-item">
+        <a href="{{ route('activity_logs.index') }}" class="sidebar-link">
+            <i class="lni lni-files"></i>
+            <span>Activity Logs</span>
+        </a>
+    </li>
+
     @endcan
 </ul>

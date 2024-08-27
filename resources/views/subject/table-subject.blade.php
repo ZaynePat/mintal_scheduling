@@ -5,7 +5,7 @@
         <h1>
             Subject
         </h1>
-        <!-- <img src="table.png"></img> -->
+
     </div>
     <div class="container pt-5">
         <table id="datatablesDefault" class="table table-striped" style="width:100%" data-export-filename="Subjects CDM Scheduling" data-export-title="Subjects">

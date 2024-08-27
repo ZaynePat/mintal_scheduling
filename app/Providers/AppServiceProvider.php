@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Schedule;
+use App\Observers\ActivityLogObserver;
 use App\Services\AcademicCalendarService;
 use App\Services\ScheduleService;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +35,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Schedule::observe(ActivityLogObserver::class);
     }
 }

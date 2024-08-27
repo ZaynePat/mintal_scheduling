@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Exports\SchedulesExport;
@@ -11,11 +10,10 @@ use App\Models\Schedule;
 use App\Models\Subject;
 use App\Services\AcademicCalendarService;
 use App\Services\ScheduleService;
+use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
-
-
     protected $currentSemester;
     protected $currentYear;
 
@@ -25,10 +23,6 @@ class ScheduleController extends Controller
         $this->currentYear = $academicCalendarService->getCurrentYear();
     }
 
-    /**
-     * display listing of resources
-     * 
-     */
     public function index()
     {
         $schedules = Schedule::with([
@@ -44,9 +38,6 @@ class ScheduleController extends Controller
         return view('schedule.table-schedule', compact('schedules'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $faculties = Faculty::select('*')->orderBy('first_name')->get();
@@ -72,16 +63,11 @@ class ScheduleController extends Controller
         ]))->with(['action' => 'add']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(ScheduleRequest $request, ScheduleService $scheduleService)
-    {        
-        $result = $scheduleService->createSchedule(
-            $request->except(['sy_id', 'semesters_id']),
-            $this->currentSemester,
-            $this->currentYear
-        );
+    {
+        $data = $request->except(['sy_id', 'semesters_id', '_token']);
+
+        $result = $scheduleService->createSchedule($data, $this->currentSemester, $this->currentYear);
 
         if ($result['success']) {
             return redirect()->route('schedule.index')->with('message', 'New schedule added!');
@@ -90,17 +76,11 @@ class ScheduleController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $schedule = Schedule::findOrFail($id);
@@ -132,13 +112,11 @@ class ScheduleController extends Controller
         ]))->with(['action' => 'update']);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ScheduleRequest $request, string $id, ScheduleService $scheduleService)
     {
-        // dd($request->all());
-        $result = $scheduleService->updateSchedule($request->except(['sy_id', 'semesters_id']), $id, $this->currentSemester);
+        $data = $request->except(['sy_id', 'semesters_id', '_token']);
+
+        $result = $scheduleService->updateSchedule($data, $id, $this->currentSemester);
 
         if ($result['success']) {
             return redirect()->route('schedule.index')->with('message', 'Schedule Updated!');
@@ -147,9 +125,6 @@ class ScheduleController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         Schedule::findOrFail($id)->delete();
@@ -157,9 +132,8 @@ class ScheduleController extends Controller
         return redirect()->route('schedule.index')->with('message', 'Schedule Deleted!');
     }
 
-    public function export() 
+    public function export()
     {
         return (new SchedulesExport)->download('Tentative_Faculty_Load.xlsx');
-        // return Excel::download(new SchedulesExport, 'schedules.xlsx');
     }
 }
