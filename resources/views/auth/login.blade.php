@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="app/assets/images/CDM_Logo.png">
+    <link rel="icon" href="{{ URL::asset('dist/assets/images/CDM_Logo.png') }}">
     <title>Welcome | Log in </title>
     <link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>

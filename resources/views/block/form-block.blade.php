@@ -52,6 +52,12 @@
                 <button class="btn btn-primary btn-lg w-100"
                     style="border: white; background-color: rgb(161, 49, 49);">{{ ucfirst($action) }}</button>
             </form>
+            <!-- Divider -->
+            <div class="position-relative">
+                <hr class="text-secondary divider">
+            </div>
+            <a href="{{ route('block.index') }}"><button class="btn btn-primary btn-lg w-100"
+                style="border: white; background-color: rgb(161, 49, 49);"> View Block</button></a>
         </div>
     </div>
 @endsection

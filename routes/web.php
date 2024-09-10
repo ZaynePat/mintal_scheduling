@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AcademicCalendarController;
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\DashboardController;
@@ -50,6 +51,9 @@ Route::middleware(['can:isAdmin','auth'])->group(function () {
     Route::post('faculty/{id}', [FacultyController::class,'setProgramhead'])->name('faculty.setProgramhead');
     Route::post('program-head/updateFaculties/{id}', [UserController::class,'updateFaculties'])->name('program-head.updateFaculties');
     Route::delete('program-head/destroyFaculties/{id}', [UserController::class,'destroyFaculties'])->name('program-head.destroyFaculties');
+    // Route for activity logs
+    Route::get('activity-logs', [ActivityLogController::class, 'index'])->name('activity_logs.index');
+    
 });
 
 Route::middleware('auth')->group(function () {
