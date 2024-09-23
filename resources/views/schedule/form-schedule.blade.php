@@ -16,7 +16,7 @@
         <div class="col col-sm-6 col-lg-7 col-xl-10">
             <!-- Title -->
             <div class="text-center mb-5">
-                <h3 class="fw-bold">{{ $action == 'update' ? 'Update' : 'Create' }} sched</h3>
+                <h3 class="fw-bold">{{ $action == 'update' ? 'Update' : 'Create' }} Schedule</h3>
             </div>
             <!-- Divider -->
             <div class="position-relative">
@@ -202,11 +202,13 @@
                                     <div class="invalid-feedback fs-6">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <!-- Container for additional time slots -->
+                            <div id="extra-time-slots"></div>
                         </div>
                     </div>
                     <!-- Add Button -->
-                    <button class="btn btn-primary btn-lg w-80"
-                        style="border: white; background-color: rgb(161, 49, 49);">{{ ucfirst($action) }}</button>
+                    <button class="btn btn-primary btn-lg"
+                        style="border: white; width: 50%; background-color: rgb(161, 49, 49);">{{ ucfirst($action) }}</button>
                     </form>
                 </div>
             </div>
@@ -214,7 +216,7 @@
             {{-- -----sched Table----- --}}
             <hr>
             <div class="container pt-5">
-                <p class="h3 fw-bold text-center">scheds Table</p>
+                <p class="h3 fw-bold text-center">Schedule Table</p>
                 <table id="datatablesForm" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
@@ -287,19 +289,6 @@
 
     <script>
         $(document).ready(function() {
-            // $('form').submit(function(event) {
-            //     if ($('div.form-check.required :checkbox:checked').length === 0) {
-            //         event.preventDefault();
-            //         $('div.form-check.required :checkbox').each(function() {
-            //             $(this).removeClass('border-black').addClass('border-danger is-invalid');
-            //         });
-
-            //     } else {
-            //         $('div.form-check.required :checkbox').each(function() {
-            //             $(this).removeClass('border-danger is-invalid').addClass('border-black');
-            //         });
-            //     }
-            // });
 
             $('div.form-check.required :checkbox').change(function() {
                 if ($(this).is(':checked')) {
@@ -309,5 +298,40 @@
                 }
             });
         });
+    </script>
+    <script>
+        // Track checkboxes
+        const dayCheckboxes = document.querySelectorAll('input[name="day[]"]');
+        const extraTimeSlotsContainer = document.getElementById('extra-time-slots');
+        
+        function updateTimeSlots() {
+            const selectedDays = [...dayCheckboxes].filter(checkbox => checkbox.checked).length;
+
+            // Clear previous extra time slots
+            extraTimeSlotsContainer.innerHTML = '';
+
+            // Add extra time slots if two or more days are selected
+            if (selectedDays >= 2) {
+                const timeSlotHTML = `
+                    <div class="input-group mb-3">
+                        <label for="time-start_input_2">Time Start (2nd):</label>
+                        <input type="time" id="time-start_input_2" class="form-control" name="time_start_2" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label for="time-end_input_2">Time End (2nd):</label>
+                        <input type="time" id="time-end_input_2" class="form-control" name="time_end_2" required>
+                    </div>
+                `;
+                extraTimeSlotsContainer.insertAdjacentHTML('beforeend', timeSlotHTML);
+            }
+        }
+
+        // Add event listeners to checkboxes
+        dayCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateTimeSlots);
+        });
+
+        // Initial check
+        updateTimeSlots();
     </script>
 @endpush

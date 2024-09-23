@@ -175,9 +175,9 @@ body{
     font-size: clamp(1rem, 3vw, 2.5rem);
 }
 #sidebar .sidebar-wrapper .logo-tag{
-    max-width: 70px;
-    min-width: 70px;
-    // transition: all 0.43s ease-out;
+    max-width: 260px;
+    min-width: 260px;
+    transition: all 0.2s ease-out;
 }
 ::after,
 ::before {
@@ -217,15 +217,15 @@ h1 {
 }
 
 #sidebar {
-    width: 70px;
+    width: 260px;
     z-index: 1000;
     transition: all 0.1s ease-out;
     display: flex;
     flex-direction: column;
 }
 #sidebar.expand, #sidebar.expand .logo-tag {
-    width: 260px;
-    min-width: 260px;
+    width: 70px;
+    min-width: 70px;
 }
 #sidebar .sidebar-wrapper{
     transition: all 0.5s ease;
@@ -253,8 +253,8 @@ h1 {
     font-weight: 600;
 }
 
-#sidebar:not(.expand) .sidebar-logo,
-#sidebar:not(.expand) a.sidebar-link span {
+#sidebar.expand .sidebar-logo,
+#sidebar.expand a.sidebar-link span {
     display: none;
 }
 
@@ -319,17 +319,17 @@ a.sidebar-link.active {
 }
 
 /* Adjustments for expandable sidebar */
-#sidebar.expand .has-dropdown.active > .sidebar-dropdown {
+#sidebar:not(.expand) .has-dropdown.active > .sidebar-dropdown {
     display: block;
 }
 
 /* Hide the icon when the sidebar is closed */
-#sidebar:not(.expand) .sidebar-item .sidebar-link i.arrow,
-#sidebar:not(.expand) .sidebar-dropdown {
+#sidebar.expand .sidebar-item .sidebar-link i.arrow,
+#sidebar.expand .sidebar-dropdown {
     display: none;
 }
 /* Show dropdown on hover when the sidebar is not expanded */
-#sidebar:not(.expand) .sidebar-item:hover .sidebar-dropdown {
+#sidebar.expand .sidebar-item:hover .sidebar-dropdown {
     display: block;
     left: 70px;
     top: 0;
@@ -337,15 +337,99 @@ a.sidebar-link.active {
     z-index: 999;
 }
 /* Style the dropdown items */
-#sidebar:not(.expand) .sidebar-item:hover .sidebar-dropdown .sidebar-link {
+#sidebar.expand .sidebar-item:hover .sidebar-dropdown .sidebar-link {
     white-space: nowrap;
     padding: 0.625rem 1.625rem;
     color: #fff;
 }
 
 /* Ensure dropdown items are styled correctly */
-#sidebar:not(.expand) .sidebar-item:hover .sidebar-dropdown .sidebar-link i {
+#sidebar.expand .sidebar-item:hover .sidebar-dropdown .sidebar-link i {
     margin-left: 50px;
+}
+
+/* Show and position the icon to the right of the link when the sidebar is open */
+#sidebar:not(.expand) .sidebar-item .sidebar-link {
+    position: relative;
+}
+
+#sidebar:not(.expand) .sidebar-item .sidebar-link i.arrow {
+    display: inline-block; /* Ensure the icon is displayed */
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+/* Rotate the arrow icon when the sidebar item is active */
+#sidebar .sidebar-nav .sidebar-item.active i.arrow {
+    transform: translateY(-50%) rotate(180deg);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Sidebar scrollbar Styles */
+.sidebar-nav {
+    max-height: calc(100vh - 120px); /* Adjust height based on your header/logo size */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    transition: all 0.5s ease;
+}
+
+/* Optional: Styling for scrollbar */
+.sidebar-nav::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+    transition: all 0.5s ease;
+}
+#sidebar.expand .sidebar-nav:hover::-webkit-scrollbar {
+   display: none;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: #888; /* Scrollbar color */
+    border-radius: 4px; /* Rounded corners for scrollbar */
+    transition: all 0.5s ease;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Darker on hover */
+    transition: all 0.5s ease;
+}
+
+// Mobile view
+@media (max-width: 768px) {
+    
+    a.sidebar-link {
+        display: flex;
+    }
+
+    .sidebar-link i {
+        font-size: 1.1rem;
+        margin-right: 0.75rem;
+    }
+
+    #sidebar.expand, #sidebar.expand .logo-tag {
+        width: 260px;
+        min-width: 260px;
+    }
+    #sidebar.expand .sidebar-logo,
+    #sidebar.expand a.sidebar-link span {
+    display: block;
+}
+    /* Adjustments for expandable sidebar */
+#sidebar.expand .has-dropdown.active > .sidebar-dropdown {
+    display: none;
+}
+/* Hide the icon when the sidebar is closed */
+#sidebar:not(.expand) .sidebar-item .sidebar-link i.arrow,
+#sidebar:not(.expand) .sidebar-dropdown {
+    display: block;
+}
+
+/* Ensure dropdown items are styled correctly */
+#sidebar.expand .sidebar-item:hover .sidebar-dropdown .sidebar-link i {
+    margin-left: 0px;
 }
 
 /* Show and position the icon to the right of the link when the sidebar is open */
@@ -362,14 +446,6 @@ a.sidebar-link.active {
     font-size: 1.1rem;
     color: #fff;
 }
-
-/* Rotate the arrow icon when the sidebar item is active */
-#sidebar .sidebar-nav .sidebar-item.active i.arrow {
-    transform: translateY(-50%) rotate(180deg);
-    transition: transform 0.3s ease-in-out;
-}
-
-@media (max-width: 768px) {
     /* Hide the sidebar */
     #sidebar {
         display: none;

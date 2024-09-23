@@ -19,7 +19,7 @@
     <div class="row vh-100 g-0">
         <!-- Left Side -->
         <div class="col-lg-6 d-none d-lg-block">
-            <div class="bg-holder" style="background-image: url('{{ asset('dist/assets/images/Mintal.png') }}"></div>
+            <div class="bg-holder" style="background-image: url('{{ asset('dist/assets/images/students2.png') }}"></div>
         </div>
 
         <!-- Right Side -->
